@@ -19,49 +19,45 @@
   let celebDialogueIndex = 0;
   let celebDialogueInterval = null;
 
-  // ===== Bollywood Dialogues (20 total, escalating) =====
+  // ===== No-Attempt Dialogues (20 total, deadpan → absurdist) =====
   const dialogues = [
-    // Tier 1 (1-5): Surprised
-    "Ye kya kar rahi ho?! Sochna padega kya ismein?",
-    "Dil hai, khilona nahi! (But seriously, Yes daba do)",
-    "Arre wah, phir se try? Button bhi sharma raha hai.",
-    "Itna mushkil nahi hai... Yes wahi hai, bada wala, golden.",
-    "Tumne Sholay dekhi hai? Woh Basanti ka scene... bas wahi feel hai abhi.",
+    "Interesting choice. Wrong, but interesting.",
+    "The button moved. That's not a bug. That's a feature.",
+    "You're really committing to this bit, huh.",
+    "I admire the persistence. Not the judgment, but the persistence.",
+    "Fun fact: no one in the history of this website has successfully clicked No.",
 
-    // Tier 2 (6-10): SRK mode + desperate
-    "\"Ek baar jo maine commitment kar di, toh phir...\" - woh toh Yes ke baad hoga!",
-    "Pushpa... I mean Aditi, flower nahi, FIRE hai ye proposal!",
-    "Button bhi thak gaya hai bhaagte bhaagte. Daya karo.",
-    "SRK hota toh ab tak baarish mein khada hota. Main code likh raha hoon.",
-    "Ye button ab therapy manga raha hai. Khush ho?",
+    "The button is now questioning your commitment to this relationship.",
+    "I spent hours coding this. You could at least pretend to be impressed.",
+    "At this point the button is running out of places to hide.",
+    "You know this ends with you clicking Yes, right? We both know.",
+    "The button just filed a restraining order against your cursor.",
 
-    // Tier 3 (11-15): Absurd escalation
-    "BREAKING NEWS: Local button refuses to be clicked. Nation wants to know WHY.",
-    "Devdas nahi banunga main. Isliye No button bhi nahi milega tumhe.",
-    "Button ne apna resignation de diya hai. Ab sirf Yes hai.",
-    "UN mein complaint file kar raha hoon: 'Button harassment'",
-    "Ye button ab witness protection programme mein hai.",
+    "BREAKING: Local button evades capture. Authorities baffled.",
+    "I could've just texted you. But no. I had to be \u2728 extra \u2728 about it.",
+    "The button has entered witness protection. New identity. New life.",
+    "Plot twist: the No button was never real. It was the friends we made along the way.",
+    "My therapist said this website is 'a lot.' I said thank you.",
 
-    // Tier 4 (16-20): Full chaos
-    "Button ne therapy leni shuru kar di hai. Therapist ne bola: 'Just say Yes.'",
-    "NASA confirmed: Button ab orbit mein hai. Catch karna mushkil hai.",
-    "Button ka autobiography aa rahi hai: 'The One Who Was Never Clicked'",
-    "Guinness World Record: Most failed attempts to reject a Valentine. Congratulations!",
-    "Plot twist: Button ne khud Yes bol diya. Bas tum bhi bol do."
+    "Okay genuinely \u2014 how are you still trying.",
+    "The button wrote a resignation letter. It was very emotional.",
+    "NASA called. They found the button. It's orbiting Jupiter.",
+    "Congratulations. You've unlocked the secret ending. It's still Yes.",
+    "I'm not even mad. I'm impressed. But also click Yes."
   ];
 
   // ===== Celebration Dialogues (10 rotating) =====
   const celebrationDialogues = [
-    "FINALLY! Itna drama kyun karna tha? Seedha Yes bol deti!",
-    "Mujhe pata tha... tum mana nahi kar sakti thi. Filmy hai ye, but TRUE!",
-    "Somewhere, SRK is smiling. Uski training kaam aa gayi.",
-    "Ab contract sign ho gaya hai. No take-backs. Maine lawyer se check karaya.",
-    "Confetti budget exhaust ho gaya hai, but feelings infinite hai.",
-    "Ye Valentine's Day nahi, HISTORY hai. Save the date!",
-    "Tumne Yes bola... aur duniya thodi better ho gayi.",
-    "Bollywood mein hota toh ab background mein \"Tum Hi Ho\" bajta.",
-    "Main already celebration mein hoon. Tum bhi aa jao!",
-    "Best decision of 2025. (Okay fine, every year.)"
+    "Finally. I was starting to think I'd have to add more code.",
+    "The button can rest now. You've freed it. It's at peace.",
+    "Somewhere, a developer just shed a single tear of joy.",
+    "The contract is binding. I checked. I didn't check with a lawyer, but still.",
+    "This confetti is coming out of my personal confetti budget, by the way.",
+    "You said Yes. No take-backs. I already mass-produced the announcement cards.",
+    "This is now a legally recognized holiday. Source: trust me.",
+    "The No button sends its regards. And also a therapy bill.",
+    "Best decision you've made today. Low bar, but still.",
+    "I'd play romantic music right now but I couldn't figure out the audio API."
   ];
 
   // ===== No Button Evasion Logic =====
@@ -136,11 +132,11 @@
     }
 
     if (noAttempts === 13) {
-      noBtn.textContent = 'Soch lo...';
+      noBtn.textContent = 'Reconsider';
     }
 
     if (noAttempts === 16) {
-      noBtn.textContent = 'Okay fine, Yes';
+      noBtn.textContent = 'Fine, Yes';
     }
 
     if (noAttempts >= 20) {
@@ -277,7 +273,7 @@
       // Update attempts clause text based on count
       if (noAttempts === 0) {
         document.getElementById('attempts-clause').textContent =
-          'The Valentine wisely chose "Yes" on the first try. Impressive taste.';
+          'The Valentine clicked Yes immediately. No drama required. Suspicious, but accepted.';
       }
 
       // More confetti on celebration screen
