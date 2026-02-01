@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aditi, Tumhare Liye Kuch Hai...</title>
+
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Aditi, Tumhare Liye Kuch Hai...">
+  <meta property="og:description" content="Kuch bahut important hai. Please open karo. Seriously.">
+  <meta property="og:image" content="assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="">
+
+  <!-- Inline SVG Heart Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Floating Background Elements -->
+  <div class="bg-hearts" aria-hidden="true">
+    <span class="floating-heart" style="--delay: 0s; --x: 10%; --size: 1.2;">&#10084;</span>
+    <span class="floating-heart" style="--delay: 2s; --x: 25%; --size: 0.8;">&#10084;</span>
+    <span class="floating-heart" style="--delay: 4s; --x: 45%; --size: 1.5;">&#10084;</span>
+    <span class="floating-heart" style="--delay: 1s; --x: 60%; --size: 0.6;">&#10084;</span>
+    <span class="floating-heart" style="--delay: 3s; --x: 75%; --size: 1.1;">&#10084;</span>
+    <span class="floating-heart" style="--delay: 5s; --x: 90%; --size: 0.9;">&#10084;</span>
+    <span class="floating-heart" style="--delay: 1.5s; --x: 35%; --size: 1.3;">&#10084;</span>
+    <span class="floating-heart" style="--delay: 3.5s; --x: 55%; --size: 0.7;">&#10084;</span>
+    <span class="sparkle" style="--delay: 0s; --x: 15%; --y: 20%;"></span>
+    <span class="sparkle" style="--delay: 1.5s; --x: 40%; --y: 60%;"></span>
+    <span class="sparkle" style="--delay: 3s; --x: 70%; --y: 30%;"></span>
+    <span class="sparkle" style="--delay: 0.8s; --x: 85%; --y: 70%;"></span>
+    <span class="sparkle" style="--delay: 2.5s; --x: 55%; --y: 45%;"></span>
+    <span class="sparkle" style="--delay: 4s; --x: 25%; --y: 80%;"></span>
+  </div>
+
+  <!-- ==================== QUESTION SCREEN ==================== -->
+  <div id="question-screen" class="screen active">
+    <div class="content-wrapper dramatic-entrance">
+      <p class="intro-text">
+        <span class="intro-line">Ek bahut bada sawaal hai...</span>
+        <span class="intro-line">Jiske jawab pe bahut kuch depend karta hai...</span>
+        <span class="intro-line">Tayyar ho?</span>
+      </p>
+
+      <h1 class="main-question">
+        Aditi,<br>
+        <span class="highlight">Will You Be My Valentine?</span>
+      </h1>
+
+      <!-- Dialogue Box -->
+      <div id="dialogue-box" class="dialogue-box" aria-live="polite">
+        <p id="dialogue-text">Choose wisely... ya nahi bhi choose karo, result toh ek hi hai.</p>
+      </div>
+
+      <!-- No Attempt Counter -->
+      <div id="attempt-counter" class="attempt-counter">
+        No attempts: <span id="attempt-count">0</span>
+      </div>
+
+      <!-- Buttons -->
+      <div id="button-container" class="button-container">
+        <button id="yes-btn" class="btn btn-yes" type="button">
+          Haan, Obviously! &#10084;
+        </button>
+        <button id="no-btn" class="btn btn-no" type="button">
+          Nahi
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CELEBRATION SCREEN ==================== -->
+  <div id="celebration-screen" class="screen">
+    <div class="content-wrapper celebration-entrance">
+
+      <h1 class="celebration-title">YESSSSS!</h1>
+      <p class="celebration-subtitle">Maine pehle hi bol diya tha... result toh ek hi tha!</p>
+
+      <!-- Celebration Dialogue -->
+      <div id="celebration-dialogue" class="dialogue-box celebration-dialogue">
+        <p id="celebration-dialogue-text"></p>
+      </div>
+
+      <!-- Valentine Contract -->
+      <div class="contract-card">
+        <div class="contract-header">
+          <h2>Official Valentine Contract</h2>
+          <p class="contract-stamp">Legally, Emotionally &amp; Dramatically Binding</p>
+        </div>
+        <div class="contract-body">
+          <p class="contract-date">Date: <span id="contract-date"></span></p>
+          <p class="contract-parties">Between: <strong>Aditi</strong> (hereinafter "The Valentine") and the creator of this website (hereinafter "The Dramatic One")</p>
+
+          <h3>Terms &amp; Conditions:</h3>
+          <ol class="contract-terms">
+            <li>This Valentine-ship is <strong>non-refundable, non-transferable, and non-negotiable</strong>.</li>
+            <li>No take-backs allowed. The "No" button was there for decoration only (as you may have noticed).</li>
+            <li>Auto-renewal every year. No opt-out clause exists.</li>
+            <li>Penalty for saying "I miss you" fewer than 100 times: <em>more "I miss you" texts</em>.</li>
+            <li>The Valentine must accept all Bollywood-level drama, random love declarations, and excessive heart emojis.</li>
+            <li id="attempts-clause">After <span id="contract-attempts">0</span> failed attempts to click "No", The Valentine has officially proven that resistance is futile.</li>
+          </ol>
+
+          <div class="contract-signature">
+            <p>Signed with love, drama, and zero chill,</p>
+            <p class="signature-heart">&#10084;</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Love Note -->
+      <div class="love-note">
+        <h2>But seriously, Aditi...</h2>
+        <p>
+          Tumhe pata hai na, tum kitni special ho? Ye website toh bas ek excuse hai
+          tumhe ye batane ke liye ki tum mere liye kitni matter karti ho.
+        </p>
+        <p>
+          Har ek line of code mein thoda sa pyaar hai (aur bahut saara drama, obviously).
+          But that's how it should be, right?
+        </p>
+        <p>
+          So here's to us &mdash; to all the laughs, the late-night talks, the silly fights,
+          and everything in between. You make everything better just by being you.
+        </p>
+        <p class="love-note-ending">
+          Happy Valentine's Day &#10084;
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
