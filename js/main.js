@@ -63,30 +63,30 @@
   // ===== No Button Evasion Logic =====
 
   function getRandomPosition() {
-    const padding = 20;
-    let maxX, maxY;
+    var padding = 20;
+    var btnWidth = noBtn.offsetWidth;
+    var btnHeight = noBtn.offsetHeight;
+    var minX = padding;
+    var minY = padding;
+    var maxX = Math.max(minX, window.innerWidth - btnWidth - padding);
+    var maxY = Math.max(minY, window.innerHeight - btnHeight - padding);
 
     if (noAttempts < 6) {
-      // Stay within the button container area initially
-      const container = document.getElementById('button-container');
-      const rect = container.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-      maxX = rect.right - btnRect.width - padding;
-      maxY = rect.bottom - btnRect.height - padding;
-      return {
-        x: Math.max(rect.left + padding, Math.random() * maxX),
-        y: Math.max(rect.top + padding, Math.random() * maxY)
-      };
-    } else {
-      // Escape to full viewport
-      const btnRect = noBtn.getBoundingClientRect();
-      maxX = window.innerWidth - btnRect.width - padding;
-      maxY = window.innerHeight - btnRect.height - padding;
-      return {
-        x: Math.max(padding, Math.random() * maxX),
-        y: Math.max(padding, Math.random() * maxY)
-      };
+      // Phase 1: constrain to button container area (intersected with viewport)
+      var container = document.getElementById('button-container');
+      var rect = container.getBoundingClientRect();
+      minX = Math.max(padding, rect.left);
+      minY = Math.max(padding, rect.top);
+      maxX = Math.min(maxX, rect.right - btnWidth);
+      maxY = Math.min(maxY, rect.bottom - btnHeight);
+      maxX = Math.max(minX, maxX);
+      maxY = Math.max(minY, maxY);
     }
+
+    return {
+      x: minX + Math.random() * (maxX - minX),
+      y: minY + Math.random() * (maxY - minY)
+    };
   }
 
   function dodgeNoButton() {
@@ -107,8 +107,8 @@
     noBtn.style.left = pos.x + 'px';
     noBtn.style.top = pos.y + 'px';
 
-    // Shrink No button (8% per attempt, min 40%)
-    const noScale = Math.max(0.4, 1 - noAttempts * 0.08);
+    // Shrink No button (4% per attempt, min 65%)
+    const noScale = Math.max(0.65, 1 - noAttempts * 0.04);
     noBtn.style.transform = 'scale(' + noScale + ')';
 
     // Grow Yes button (8% per attempt, max 1.8x)
@@ -140,8 +140,19 @@
     }
 
     if (noAttempts >= 20) {
-      noBtn.style.opacity = String(Math.max(0.1, 0.5 - (noAttempts - 20) * 0.1));
+      noBtn.style.opacity = String(Math.max(0.4, 0.8 - (noAttempts - 20) * 0.05));
     }
+
+    // Update futility meter
+    var futilityMeter = document.getElementById('futility-meter');
+    var futilityFill = document.getElementById('futility-bar-fill');
+    var futilityPct = document.getElementById('futility-pct');
+    if (noAttempts >= 1) {
+      futilityMeter.classList.add('visible');
+    }
+    var pct = Math.min(100, Math.round(noAttempts / 20 * 100));
+    futilityFill.style.width = pct + '%';
+    futilityPct.textContent = pct + '%';
 
     // Update dialogue
     updateDialogue();
@@ -232,7 +243,7 @@
       particleCount: 150,
       spread: 100,
       origin: { y: 0.6 },
-      colors: ['#ffd700', '#ff4444', '#ff69b4', '#fff', '#c8a400']
+      colors: ['#e63970', '#ff6b8a', '#ffb6c8', '#fff', '#ff85a2']
     });
 
     // Left burst
@@ -242,7 +253,7 @@
         angle: 60,
         spread: 70,
         origin: { x: 0, y: 0.6 },
-        colors: ['#ffd700', '#ff4444', '#ff69b4']
+        colors: ['#e63970', '#ff6b8a', '#ffb6c8']
       });
     }, 300);
 
@@ -253,7 +264,7 @@
         angle: 120,
         spread: 70,
         origin: { x: 1, y: 0.6 },
-        colors: ['#ffd700', '#ff4444', '#ff69b4']
+        colors: ['#e63970', '#ff6b8a', '#ffb6c8']
       });
     }, 500);
 
@@ -282,7 +293,7 @@
           particleCount: 100,
           spread: 160,
           origin: { y: 0.3 },
-          colors: ['#ffd700', '#ff4444', '#ff69b4', '#fff']
+          colors: ['#e63970', '#ff6b8a', '#ffb6c8', '#fff']
         });
       }, 800);
 
