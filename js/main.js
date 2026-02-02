@@ -64,12 +64,20 @@
 
   function getRandomPosition() {
     var padding = 20;
-    var btnWidth = noBtn.offsetWidth;
-    var btnHeight = noBtn.offsetHeight;
+    // Use getBoundingClientRect for actual visual size (accounts for transforms)
+    var btnRect = noBtn.getBoundingClientRect();
+    var btnWidth = Math.ceil(btnRect.width);
+    var btnHeight = Math.ceil(btnRect.height);
+
+    // Use visualViewport for reliable dimensions on mobile (address bar, keyboard, etc.)
+    var vp = window.visualViewport || null;
+    var vpW = vp ? vp.width : document.documentElement.clientWidth;
+    var vpH = vp ? vp.height : document.documentElement.clientHeight;
+
     var minX = padding;
     var minY = padding;
-    var maxX = Math.max(minX, window.innerWidth - btnWidth - padding);
-    var maxY = Math.max(minY, window.innerHeight - btnHeight - padding);
+    var maxX = Math.max(minX, vpW - btnWidth - padding);
+    var maxY = Math.max(minY, vpH - btnHeight - padding);
 
     if (noAttempts < 6) {
       // Phase 1: constrain to button container area (intersected with viewport)
@@ -107,10 +115,6 @@
     noBtn.style.left = pos.x + 'px';
     noBtn.style.top = pos.y + 'px';
 
-    // Shrink No button (4% per attempt, min 65%)
-    const noScale = Math.max(0.65, 1 - noAttempts * 0.04);
-    noBtn.style.transform = 'scale(' + noScale + ')';
-
     // Grow Yes button (8% per attempt, max 1.8x)
     const yesScale = Math.min(1.8, 1 + noAttempts * 0.08);
     yesBtn.style.transform = 'scale(' + yesScale + ')';
@@ -120,27 +124,13 @@
       yesBtn.classList.add('pulsing');
     }
 
-    // Special behaviors at milestones
-    if (noAttempts === 7) {
-      // Opacity flash
-      noBtn.style.opacity = '0.4';
-      setTimeout(function() { noBtn.style.opacity = '0.7'; }, 300);
-    }
-
-    if (noAttempts === 10) {
-      noBtn.classList.add('flipped');
-    }
-
+    // Text changes at milestones
     if (noAttempts === 13) {
       noBtn.textContent = 'Reconsider';
     }
 
     if (noAttempts === 16) {
       noBtn.textContent = 'Fine, Yes';
-    }
-
-    if (noAttempts >= 20) {
-      noBtn.style.opacity = String(Math.max(0.4, 0.8 - (noAttempts - 20) * 0.05));
     }
 
     // Update futility meter
